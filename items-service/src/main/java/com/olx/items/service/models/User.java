@@ -1,20 +1,7 @@
-/**
- * 
- */
-package com.olx.user.service.models;
+package com.olx.items.service.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name ="korisnik")
 public class User {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+
 	private Long id;
 	
 	private String firstName;
@@ -28,9 +15,6 @@ public class User {
 	public String phoneNumber;
 	
 	public String location;
-
-	public User() {
-	}
 
 	public Long getId() {
 		return id;
