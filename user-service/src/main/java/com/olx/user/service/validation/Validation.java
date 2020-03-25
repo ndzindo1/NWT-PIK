@@ -34,5 +34,5 @@ public interface Validation {
     
     String REGEX_PHONENUMBER ="^[+]{1}[0-9]{11}$";
     
-    String REGEX_TEXT="^([A-Z]+[A-Za-z]+\\\\s{0,1})+$";
+    String REGEX_TEXT="^([A-Z]+[A-Za-z]+\\s{0,1})+$";
 }

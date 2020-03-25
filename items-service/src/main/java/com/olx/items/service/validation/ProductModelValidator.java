@@ -44,7 +44,7 @@ public class ProductModelValidator implements Validator  {
 			validateLocation(product, errors);
 			validateDescription(product, errors);
 			validatePrice(product, errors);
-			validateUserId(product, errors);
+			validateUser(product, errors);
 			validateCategory(product, errors);
 	
 		}
@@ -99,33 +99,33 @@ public class ProductModelValidator implements Validator  {
 		}
 	}
 	
-	protected void validateUserId(Product product, Errors errors) {
-		Long userId =product.getUserId();
-		if (userId == null) {
-			errors.rejectValue("userId", Validation.USER_DOES_NOT_EXIST);
+	protected void validateUser(Product product, Errors errors) {
+		User user =product.getUser();
+		if (user == null) {
+			errors.rejectValue("user", Validation.USER_DOES_NOT_EXIST);
 		}
 	}
 	
 	protected void validateCategory(Product product, Errors errors) {
 		Category category = product.getCategory();
 		if (category == null) {
-			errors.rejectValue("categoryId", Validation.CATEGORY_DOES_NOT_EXIST);
+			errors.rejectValue("category", Validation.CATEGORY_DOES_NOT_EXIST);
 		}
 	}
 	
 	public void validateUpdate(Product product, Errors errors) {
 		if(product != null) {
-			if(product.getUserId() != null) {
-				User user = userManager.getUserById(Long.toString(product.getUserId()));
+			if(product.getUser() != null) {
+				User user = userManager.getUserById(product.getUser().getId());
 				if (user == null) {
-					errors.rejectValue("userId", Validation.USER_DOES_NOT_EXIST);
+					errors.rejectValue("user", Validation.USER_DOES_NOT_EXIST);
 				}
 			}
 			
 			if(product.getCategory() != null) {
 				Category category = categoryManager.getCategoryById(product.getCategory().getId());
 				if (category == null) {
-					errors.rejectValue("categoryId", Validation.CATEGORY_DOES_NOT_EXIST);
+					errors.rejectValue("category", Validation.CATEGORY_DOES_NOT_EXIST);
 				}
 			}
 		}

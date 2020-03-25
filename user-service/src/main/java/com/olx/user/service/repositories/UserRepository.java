@@ -5,9 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.olx.user.service.models.User;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
-	
-	User findById(Long id);
+public interface UserRepository extends CrudRepository<User, Long> {
 	
 	User findByEmail(String email);
 

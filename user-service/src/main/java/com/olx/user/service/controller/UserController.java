@@ -36,11 +36,10 @@ public class UserController {
 		userModelValidator.validate(user, errors);
 		
 		if (!errors.hasErrors()) {
-			userManager.save(user);
-		   	return new ResponseEntity<Object>(user, HttpStatus.OK);
+		   	return new ResponseEntity<Object>(userManager.save(user), HttpStatus.OK);
 		}
 
-		return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.CONFLICT);
+		return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
@@ -49,7 +48,7 @@ public class UserController {
 		userModelValidator.validateUpdate(user, errors);
 		
 		if (errors.hasErrors()) {
-		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.CONFLICT);
+		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		
 		User updatedUser = userManager.update(user, id);
@@ -58,12 +57,12 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-    public  ResponseEntity<Object> getAllUsers(@RequestBody Login login, Errors errors) {
+    public  ResponseEntity<Object> login(@RequestBody Login login, Errors errors) {
 		
 		loginModelValidator.validate(login, errors);
 		
 		if (errors.hasErrors()) {
-		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.CONFLICT);
+		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<Object>(userManager.getUserByEmail(login.getEmail()), HttpStatus.OK);
     }

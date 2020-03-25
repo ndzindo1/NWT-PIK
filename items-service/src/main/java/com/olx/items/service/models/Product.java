@@ -15,14 +15,14 @@ import javax.persistence.OneToMany;
 public class Product {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name="categoryId", nullable=false)
 	public Category category;
 	
-	private Long userId;
+	@ManyToOne
+	private User user;
 	
 	private Boolean preOwned;
 	
@@ -40,8 +40,8 @@ public class Product {
 	
 	private Long createdAt;
 	
-	@OneToMany(targetEntity = Image.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="productId", referencedColumnName = "id")
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="productId", referencedColumnName ="id")
 	private List<Image> images;
 
 	public Long getId() {
@@ -60,12 +60,12 @@ public class Product {
 		this.category = category;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Boolean getPreOwned() {

@@ -4,5 +4,7 @@ import com.olx.items.service.models.User;
 
 public interface UserManager {
 	
-	User getUserById(String id);
+	User getUserById(Long id);
+	
+	Boolean add(User user);
 }

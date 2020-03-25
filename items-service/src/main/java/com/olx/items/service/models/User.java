@@ -1,7 +1,17 @@
 package com.olx.items.service.models;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name ="korisnik")
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	private String firstName;
@@ -9,12 +19,9 @@ public class User {
 	private String lastName;
 	
 	public String email;
-	
-	public String password;
-	
-	public String phoneNumber;
-	
-	public String location;
+
+	public User() {
+	}
 
 	public Long getId() {
 		return id;
@@ -46,29 +53,5 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 }

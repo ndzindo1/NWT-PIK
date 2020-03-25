@@ -31,7 +31,7 @@ public class CategoryController {
 		categoryModelValidator.validate(category, errors);
 		
 		if (errors.hasErrors()) {
-		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.CONFLICT);
+		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<Object>(categoryManager.save(category), HttpStatus.OK);
     }

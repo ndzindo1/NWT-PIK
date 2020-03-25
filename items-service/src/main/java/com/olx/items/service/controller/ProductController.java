@@ -37,13 +37,13 @@ public class ProductController {
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseEntity<Object> add(@RequestBody Product product,
-    								  @RequestParam(required = true) String userId,
+    								  @RequestParam(required = true) Long userId,
     								  @RequestParam(required = true) Long categoryId, 
     								  Errors errors) {
 		
 		
 		User user = userManager.getUserById(userId);
-		product.setUserId( user!=null ? user.getId(): null);
+		product.setUser(user);
 		
 		Category category = categoryManager.getCategoryById(categoryId);
 		product.setCategory(category);
@@ -51,7 +51,7 @@ public class ProductController {
 		productModelValidator.validate(product, errors);
 		
 		if (errors.hasErrors()) {
-		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.CONFLICT);
+		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<Object>(productManager.save(product), HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class ProductController {
 		
 		productModelValidator.validateUpdate(product, errors);
 		if (errors.hasErrors()) {
-		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.CONFLICT);
+		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		
 		Product updatedProduct = productManager.update(product, id);
@@ -97,4 +97,5 @@ public class ProductController {
     public void deleteProductById(@PathVariable("id") Long id) {
 		productManager.delete(id);
     }
+	
 }
