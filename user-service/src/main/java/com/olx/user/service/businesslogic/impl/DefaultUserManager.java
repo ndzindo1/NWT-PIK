@@ -39,7 +39,8 @@ public class DefaultUserManager implements UserManager {
 				System.out.println("User nije dodan u items microservice!");
 			if(!(addUserInAnotherMicroService(user, "http://localhost:8088/olx/messages/users/add")))
 				System.out.println("User nije dodan u message microservice!");
-			//addUserInAnotherMicroService();
+			if(!(addUserInAnotherMicroService(user, "http://localhost:8089/olx/transaction/users/add")))
+				System.out.println("User nije dodan u transaction microservice!");
 		}
 		return null;
 	}

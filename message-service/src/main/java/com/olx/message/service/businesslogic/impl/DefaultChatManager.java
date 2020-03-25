@@ -31,4 +31,9 @@ public class DefaultChatManager implements ChatManager {
 		return chatRepository.save(chat);
 	}
 
+	@Override
+	public void delete(Long id) {
+		chatRepository.deleteById(id);
+	}
+
 }

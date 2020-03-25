@@ -1,10 +1,18 @@
 package com.olx.items.service.businesslogic.impl;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.social.support.URIBuilder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import com.olx.items.service.businesslogic.ProductManager;
 import com.olx.items.service.models.Product;
@@ -15,6 +23,13 @@ public class DefaultProductManager implements ProductManager {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	private RestTemplate restTemplate;
+
+	@PostConstruct
+	public void init() {
+		restTemplate = new RestTemplate();
+	}
 		
 	@Override
 	public List<Product> getAllProducts() {
@@ -26,7 +41,15 @@ public class DefaultProductManager implements ProductManager {
 
 	@Override
 	public Product save(Product product) {
-		return productRepository.save(product);
+		
+		Product isAdded = productRepository.save(product);
+		
+		if (isAdded != null) {
+			if(!(addProductInAnotherMicroService(product, "http://localhost:8089/olx/transaction/products/add")))
+				System.out.println("Product nije dodan u transaction microservice!");
+		}
+		
+		return isAdded;
 	}
 
 	@Override
@@ -82,5 +105,13 @@ public class DefaultProductManager implements ProductManager {
 	public List<Product> getArhived(Long id) {
 		return productRepository.findByUserIdAndArhived(id, Boolean.TRUE);
 	}
-
+	
+	public Boolean addProductInAnotherMicroService(Product product, String url) {
+		URI uri = URIBuilder.fromUri(url).build();
+    	RequestEntity<Product> request = RequestEntity.method(HttpMethod.PUT, uri)
+    											.contentType(MediaType.APPLICATION_JSON)
+    											.body(product);
+    	
+		return restTemplate.exchange(request, Boolean.class).getBody();
+	}
 }

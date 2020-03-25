@@ -12,4 +12,6 @@ public interface ChatManager {
 	Chat save(Chat chat);
 	
 	Chat getChatById(Long id);
+	
+	void delete(Long id);
 }
