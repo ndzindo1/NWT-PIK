@@ -22,8 +22,11 @@ import com.olx.message.service.validation.ChatModelValidator;
 import com.olx.message.service.validation.MessageModelValidator;
 import com.olx.message.service.validation.Validation;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("olx/chat/")
+@Api(tags = { "Chat Controller" })
 public class ChatController {
 	
 	@Autowired

@@ -18,8 +18,11 @@ import com.olx.user.service.models.User;
 import com.olx.user.service.validation.LoginModelValidator;
 import com.olx.user.service.validation.UserModelValidator;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("olx/users/")
+@Api(tags = { "User Controller" })
 public class UserController {
 	
 	@Autowired

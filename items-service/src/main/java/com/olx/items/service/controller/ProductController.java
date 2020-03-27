@@ -21,8 +21,12 @@ import com.olx.items.service.models.Product;
 import com.olx.items.service.models.User;
 import com.olx.items.service.validation.ProductModelValidator;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("olx/products/")
+@Api(tags = { "Product Controller" })
 public class ProductController {
 	
 	@Autowired
@@ -35,6 +39,10 @@ public class ProductController {
 	private CategoryManager categoryManager;
 	
 	
+	/*@ApiOperation(value = "Retrieves system configuration", 
+				  notes = "This service method is used to retrieve system configuration", 
+				  tags = {"Global Configuration Service" }, 
+				  response = ResponseEntity.class)*/
 	@RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseEntity<Object> add(@RequestBody Product product,
     								  @RequestParam(required = true) Long userId,
@@ -96,6 +104,5 @@ public class ProductController {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void deleteProductById(@PathVariable("id") Long id) {
 		productManager.delete(id);
-    }
-	
+    }	
 }

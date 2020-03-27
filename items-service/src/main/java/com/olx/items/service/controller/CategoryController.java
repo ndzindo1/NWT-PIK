@@ -16,8 +16,11 @@ import com.olx.items.service.businesslogic.CategoryManager;
 import com.olx.items.service.models.Category;
 import com.olx.items.service.validation.CategoryModelValidator;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("olx/category/")
+@Api(tags = { "Category Controller" })
 public class CategoryController {
 	
 	@Autowired

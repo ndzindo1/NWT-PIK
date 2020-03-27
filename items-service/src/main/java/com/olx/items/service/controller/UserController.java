@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.olx.items.service.businesslogic.UserManager;
 import com.olx.items.service.models.User;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("olx/items/users/")
+@Api(tags = { "User Controller" })
 public class UserController {
 	
 	@Autowired
