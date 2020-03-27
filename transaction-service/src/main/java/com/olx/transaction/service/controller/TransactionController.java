@@ -22,8 +22,11 @@ import com.olx.transaction.service.models.Transaction;
 import com.olx.transaction.service.models.User;
 import com.olx.transaction.service.validation.TransactionModelValidator;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("olx/transaction/")
+@Api(tags = { "Transaction Controller" })
 public class TransactionController {
 	
 	@Autowired
@@ -39,7 +42,7 @@ public class TransactionController {
 	private TransactionModelValidator transactionModelValidator;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<Object>  addChat(@RequestBody TransactionForm requestBody, Errors errors) {
+    public ResponseEntity<Object>  addTransaction(@RequestBody TransactionForm requestBody, Errors errors) {
 		
 		User owner = userManager.getUserById(requestBody.owner);
 		User buyer = userManager.getUserById(requestBody.buyer);

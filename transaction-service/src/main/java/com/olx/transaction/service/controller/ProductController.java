@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.olx.transaction.service.businesslogic.ProductManager;
 import com.olx.transaction.service.models.Product;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("olx/transaction/products/")
+@Api(tags = { "Product Controller" })
 public class ProductController {
 	
 	@Autowired
 	private ProductManager productManager;
 
 	@RequestMapping(value = "add", method = RequestMethod.PUT)
-    public Boolean addUser(@RequestBody Product product) {
+    public Boolean addProduct(@RequestBody Product product) {
 		return productManager.add(product);
     }
 
