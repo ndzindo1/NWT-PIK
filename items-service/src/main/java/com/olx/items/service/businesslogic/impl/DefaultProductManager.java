@@ -24,6 +24,7 @@ public class DefaultProductManager implements ProductManager {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
 	private RestTemplate restTemplate;
 
 	@PostConstruct
@@ -45,7 +46,7 @@ public class DefaultProductManager implements ProductManager {
 		Product isAdded = productRepository.save(product);
 		
 		if (isAdded != null) {
-			if(!(addProductInAnotherMicroService(product, "http://localhost:8089/olx/transaction/products/add")))
+			if(!(addProductInAnotherMicroService(product, "http://transaction-service/olx/transaction/products/add")))
 				System.out.println("Product nije dodan u transaction microservice!");
 		}
 		

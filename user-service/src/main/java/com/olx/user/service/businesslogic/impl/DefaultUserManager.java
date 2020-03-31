@@ -24,6 +24,7 @@ public class DefaultUserManager implements UserManager {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
 	private RestTemplate restTemplate;
 
 	@PostConstruct
@@ -35,11 +36,11 @@ public class DefaultUserManager implements UserManager {
 	public User save(User user) {
 		User isAdded = userRepository.save(user);
 		if (isAdded != null) {
-			if(!(addUserInAnotherMicroService(user, "http://localhost:8087/olx/items/users/add")))
+			if(!(addUserInAnotherMicroService(user, "http://items-service/olx/items/users/add")))
 				System.out.println("User nije dodan u items microservice!");
-			if(!(addUserInAnotherMicroService(user, "http://localhost:8088/olx/messages/users/add")))
+			if(!(addUserInAnotherMicroService(user, "http://message-service/olx/messages/users/add")))
 				System.out.println("User nije dodan u message microservice!");
-			if(!(addUserInAnotherMicroService(user, "http://localhost:8089/olx/transaction/users/add")))
+			if(!(addUserInAnotherMicroService(user, "http://transaction-service/olx/transaction/users/add")))
 				System.out.println("User nije dodan u transaction microservice!");
 		}
 		return null;

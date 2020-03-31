@@ -33,7 +33,7 @@ public class UserController {
 	private LoginModelValidator loginModelValidator;
 	
 	
-	@RequestMapping(value = "registrate", method = RequestMethod.POST)
+	@RequestMapping(value = "post", method = RequestMethod.POST)
 	public ResponseEntity<Object> register(@RequestBody User user, Errors errors) {
 
 		userModelValidator.validate(user, errors);
