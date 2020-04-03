@@ -24,7 +24,7 @@ public class MessageServiceApplication {
 	@Bean
     public Docket swaggerConiguration() {
 	return new Docket(DocumentationType.SWAGGER_2).select()
-												  .apis(RequestHandlerSelectors.any())
+												  .apis(RequestHandlerSelectors.basePackage("com.olx.message.service"))
 												  .paths(PathSelectors.any())
 												  .build()
 												  .apiInfo(new ApiInfo(
@@ -37,5 +37,4 @@ public class MessageServiceApplication {
 															"http://javabrains.io/",
 															Collections.emptyList()));
     }
-
 }

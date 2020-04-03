@@ -15,6 +15,8 @@ public class Product {
 	private String name;
 	
 	private Double price;
+	
+	private Boolean arhived;
 
 	public Long getId() {
 		return id;
@@ -38,5 +40,13 @@ public class Product {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Boolean getArhived() {
+		return arhived;
+	}
+
+	public void setArhived(Boolean arhived) {
+		this.arhived = arhived;
 	}
 }

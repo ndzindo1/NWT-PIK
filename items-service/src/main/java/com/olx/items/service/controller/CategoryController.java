@@ -17,6 +17,7 @@ import com.olx.items.service.models.Category;
 import com.olx.items.service.validation.CategoryModelValidator;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("olx/category/")
@@ -28,6 +29,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryModelValidator categoryModelValidator;
 	
+	@ApiOperation(value = "Add category", notes = "This service method is used to add a new category.")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseEntity<Object> add(@RequestBody Category category, Errors errors) {
 		
@@ -38,17 +40,21 @@ public class CategoryController {
 		}
 		return new ResponseEntity<Object>(categoryManager.save(category), HttpStatus.OK);
     }
-		
+	
+	@ApiOperation(value = "Get all category", notes = "This service method is used to get all category.")
 	@RequestMapping(value = "all", method = RequestMethod.GET)
     public List<Category> getAllCategory() {
 		return categoryManager.getAllCategory();
     }
 	
+	
+	@ApiOperation(value = "Get category by id", notes = "This service method is used to get category by Id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Category getCategoryById(@PathVariable("id") Long id) {
 		return categoryManager.getCategoryById(id);
     }
 	
+	@ApiOperation(value = "Delete a category", notes = "This service method is used to delete category.")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void deleteCategoryById(@PathVariable("id") Long id) {
 		categoryManager.delete(id);

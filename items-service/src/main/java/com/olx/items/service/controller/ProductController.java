@@ -39,16 +39,12 @@ public class ProductController {
 	private CategoryManager categoryManager;
 	
 	
-	/*@ApiOperation(value = "Retrieves system configuration", 
-				  notes = "This service method is used to retrieve system configuration", 
-				  tags = {"Global Configuration Service" }, 
-				  response = ResponseEntity.class)*/
+	@ApiOperation(value = "Add product", notes = "This service method is used to add a new product.")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
     public ResponseEntity<Object> add(@RequestBody Product product,
     								  @RequestParam(required = true) Long userId,
     								  @RequestParam(required = true) Long categoryId, 
-    								  Errors errors) {
-		
+    								  Errors errors) {		
 		
 		User user = userManager.getUserById(userId);
 		product.setUser(user);
@@ -64,6 +60,7 @@ public class ProductController {
 		return new ResponseEntity<Object>(productManager.save(product), HttpStatus.OK);
     }
 	
+	@ApiOperation(value = "Update product", notes = "This service method is used to update a product.")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody Product product, Errors errors) {
 		
@@ -76,31 +73,37 @@ public class ProductController {
 		return new ResponseEntity<Object>(updatedProduct, HttpStatus.OK);
     }
 	
+	@ApiOperation(value = "Search", notes = "This service method is used to search for products by name.")
 	@RequestMapping(value = "search", method = RequestMethod.GET)
     public List<Product> search(@RequestParam(required = true) String name) {
 		return productManager.search(name);
     }
 	
+	@ApiOperation(value = "Get active products", notes = "This service method is used to get active products from user.")
 	@RequestMapping(value = "my/active", method = RequestMethod.GET)
     public List<Product> activeProducts(@RequestParam(required = true) Long id) {
 		return productManager.getActive(id);
     }
 	
+	@ApiOperation(value = "Get arhived products", notes = "This service method is used to get arhived products from user.")
 	@RequestMapping(value = "my/arhived", method = RequestMethod.GET)
     public List<Product> arhivedProducts(@RequestParam(required = true) Long id) {
 		return productManager.getArhived(id);
     }
 	
+	@ApiOperation(value = "Get all products", notes = "This service method is used to get all products.")
 	@RequestMapping(value = "all", method = RequestMethod.GET)
     public List<Product> getAllProducts() {
 		return productManager.getAllProducts();
     }
 	
+	@ApiOperation(value = "Get product by id", notes = "This service method is used to get product by id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Product getProductById(@PathVariable("id") Long id) {
 		return productManager.getProductById(id);
     }
 	
+	@ApiOperation(value = "Delete product", notes = "This service method is used to delete product by id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void deleteProductById(@PathVariable("id") Long id) {
 		productManager.delete(id);

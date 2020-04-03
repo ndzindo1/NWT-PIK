@@ -10,6 +10,7 @@ import com.olx.message.service.businesslogic.UserManager;
 import com.olx.message.service.models.User;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("olx/messages/users/")
@@ -19,6 +20,7 @@ public class UserController {
 	@Autowired
 	private UserManager userManager;
 
+	@ApiOperation(value = "Add a new user", notes = "This service method is used to add a new user to the message database.")
 	@RequestMapping(value = "add", method = RequestMethod.PUT)
     public Boolean addUser(@RequestBody User user) {
 		return userManager.add(user);

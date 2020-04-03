@@ -10,6 +10,7 @@ import com.olx.transaction.service.businesslogic.ProductManager;
 import com.olx.transaction.service.models.Product;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("olx/transaction/products/")
@@ -19,6 +20,7 @@ public class ProductController {
 	@Autowired
 	private ProductManager productManager;
 
+	@ApiOperation(value = "Add a new product",	notes = "This service method is used to add a new product to the transaction database.")
 	@RequestMapping(value = "add", method = RequestMethod.PUT)
     public Boolean addProduct(@RequestBody Product product) {
 		return productManager.add(product);

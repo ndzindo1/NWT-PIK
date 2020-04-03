@@ -26,7 +26,7 @@ public class UserServiceApplication {
 	@Bean
     public Docket swaggerConiguration() {
 	return new Docket(DocumentationType.SWAGGER_2).select()
-												  .apis(RequestHandlerSelectors.any())
+												  .apis(RequestHandlerSelectors.basePackage("com.olx.user.service"))
 												  .paths(PathSelectors.any())
 												  .build()
 												  .apiInfo(new ApiInfo(
