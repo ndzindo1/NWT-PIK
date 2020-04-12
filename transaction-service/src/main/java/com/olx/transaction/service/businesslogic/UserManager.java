@@ -6,5 +6,9 @@ public interface UserManager {
 	
 	User getUserById(Long id);
 	
-	Boolean add(User user);
+	User getUserByEmail(String email);
+	
+	void add(User user);
+	
+	void delete(String email);
 }

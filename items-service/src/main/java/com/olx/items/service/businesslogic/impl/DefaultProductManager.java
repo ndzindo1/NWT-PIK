@@ -4,8 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -26,11 +24,6 @@ public class DefaultProductManager implements ProductManager {
 	
 	@Autowired
 	private RestTemplate restTemplate;
-
-	@PostConstruct
-	public void init() {
-		restTemplate = new RestTemplate();
-	}
 		
 	@Override
 	public List<Product> getAllProducts() {
@@ -46,8 +39,7 @@ public class DefaultProductManager implements ProductManager {
 		Product isAdded = productRepository.save(product);
 		
 		if (isAdded != null) {
-			if(!(addProductInAnotherMicroService(product, "http://transaction-service/olx/transaction/products/add")))
-				System.out.println("Product nije dodan u transaction microservice!");
+			addProductInAnotherMicroService(product, "http://transaction-service/olx/transaction/products/add");
 		}
 		
 		return isAdded;
@@ -107,12 +99,12 @@ public class DefaultProductManager implements ProductManager {
 		return productRepository.findByUserIdAndArhived(id, Boolean.TRUE);
 	}
 	
-	public Boolean addProductInAnotherMicroService(Product product, String url) {
+	public void addProductInAnotherMicroService(Product product, String url) {
 		URI uri = URIBuilder.fromUri(url).build();
-    	RequestEntity<Product> request = RequestEntity.method(HttpMethod.PUT, uri)
+    	RequestEntity<Product> request = RequestEntity.method(HttpMethod.POST, uri)
     											.contentType(MediaType.APPLICATION_JSON)
     											.body(product);
     	
-		return restTemplate.exchange(request, Boolean.class).getBody();
+		restTemplate.exchange(request, Boolean.class).getBody();
 	}
 }

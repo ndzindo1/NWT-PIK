@@ -4,8 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -27,23 +25,15 @@ public class DefaultUserManager implements UserManager {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@PostConstruct
-	public void init() {
-		restTemplate = new RestTemplate();
-	}
-	
 	@Override
 	public User save(User user) {
 		User isAdded = userRepository.save(user);
 		if (isAdded != null) {
-			if(!(addUserInAnotherMicroService(user, "http://items-service/olx/items/users/add")))
-				System.out.println("User nije dodan u items microservice!");
-			if(!(addUserInAnotherMicroService(user, "http://message-service/olx/messages/users/add")))
-				System.out.println("User nije dodan u message microservice!");
-			if(!(addUserInAnotherMicroService(user, "http://transaction-service/olx/transaction/users/add")))
-				System.out.println("User nije dodan u transaction microservice!");
+			addUserInAnotherMicroService(user, "http://items-service/olx/items/users/add");
+			addUserInAnotherMicroService(user, "http://message-service/olx/messages/users/add");
+			addUserInAnotherMicroService(user, "http://transaction-service/olx/transaction/users/add");
 		}
-		return null;
+		return isAdded;
 	}
 
 
@@ -99,7 +89,7 @@ public class DefaultUserManager implements UserManager {
 	
 	public Boolean addUserInAnotherMicroService(User user, String url) {
 		URI uri = URIBuilder.fromUri(url).build();
-    	RequestEntity<User> request = RequestEntity.method(HttpMethod.PUT, uri)
+    	RequestEntity<User> request = RequestEntity.method(HttpMethod.POST, uri)
     											.contentType(MediaType.APPLICATION_JSON)
     											.body(user);
     	

@@ -21,9 +21,9 @@ public class ProductController {
 	private ProductManager productManager;
 
 	@ApiOperation(value = "Add a new product",	notes = "This service method is used to add a new product to the transaction database.")
-	@RequestMapping(value = "add", method = RequestMethod.PUT)
-    public Boolean addProduct(@RequestBody Product product) {
-		return productManager.add(product);
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+    public void addProduct(@RequestBody Product product) {
+		productManager.add(product);
     }
 
 }

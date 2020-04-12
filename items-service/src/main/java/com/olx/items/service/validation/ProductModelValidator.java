@@ -128,6 +128,18 @@ public class ProductModelValidator implements Validator  {
 					errors.rejectValue("category", Validation.CATEGORY_DOES_NOT_EXIST);
 				}
 			}
+			if(product.getName() != null) {
+				validateName(product, errors);
+			}
+			if(product.getLocation() != null) {
+				validateLocation(product, errors);
+			}
+			if(product.getDescription() != null) {
+				validateDescription(product, errors);
+			}
+			if(product.getPrice() != null) {
+				validatePrice(product, errors);
+			}
 		}
 	}
 }

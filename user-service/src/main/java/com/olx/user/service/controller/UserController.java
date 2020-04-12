@@ -34,7 +34,7 @@ public class UserController {
 	private LoginModelValidator loginModelValidator;
 	
 	@ApiOperation(value = "Register a new user", notes = "This service method is used to register a new user to the system.")
-	@RequestMapping(value = "post", method = RequestMethod.POST)
+	@RequestMapping(value = "register", method = RequestMethod.POST)
 	public ResponseEntity<Object> register(@RequestBody User user, Errors errors) {
 
 		userModelValidator.validate(user, errors);
@@ -81,13 +81,22 @@ public class UserController {
 	
 	@ApiOperation(value = "Get user by id",	notes = "This service method is used to retrieve a user with a specific id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public User getUserById(@PathVariable("id") Long id) {
-		return userManager.getUserById(id);
+    public  ResponseEntity<Object> getUserById(@PathVariable("id") Long id) {
+		User user = userManager.getUserById(id);
+		if(user == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji korisnik sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Object>(user, HttpStatus.OK);
     }
 	
 	@ApiOperation(value = "Delete user", notes = "This service method is used to delete a user with a specific id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void deleteUserById(@PathVariable("id") Long id) {
+    public  ResponseEntity<Object> deleteUserById(@PathVariable("id") Long id) {
+		User user = userManager.getUserById(id);
+		if(user == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji korisnik sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
 		userManager.delete(id);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
     }
 }

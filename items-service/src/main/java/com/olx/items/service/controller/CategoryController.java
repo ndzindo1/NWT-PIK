@@ -50,13 +50,22 @@ public class CategoryController {
 	
 	@ApiOperation(value = "Get category by id", notes = "This service method is used to get category by Id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public Category getCategoryById(@PathVariable("id") Long id) {
-		return categoryManager.getCategoryById(id);
+    public ResponseEntity<Object> getCategoryById(@PathVariable("id") Long id) {
+		Category category = categoryManager.getCategoryById(id);
+		if(category == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji kategorija sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Object>(category, HttpStatus.OK);
     }
 	
 	@ApiOperation(value = "Delete a category", notes = "This service method is used to delete category.")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void deleteCategoryById(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteCategoryById(@PathVariable("id") Long id) {
+		Category category = categoryManager.getCategoryById(id);
+		if(category == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji kategorija sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
 		categoryManager.delete(id);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
     }
 }

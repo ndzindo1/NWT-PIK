@@ -10,7 +10,6 @@ import com.olx.items.service.repositories.UserRepository;
 @Component
 public class DefaultUserManager implements UserManager{
 	
-	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -20,8 +19,17 @@ public class DefaultUserManager implements UserManager{
 	}
 
 	@Override
-	public Boolean add(User newUser) {
-		User user = userRepository.save(newUser);
-		return user != null;
+	public void add(User newUser) {
+		userRepository.save(newUser);
+	}
+
+	@Override
+	public void delete(String email) {
+		userRepository.delete(getUserByEmail(email));
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 }

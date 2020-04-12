@@ -19,8 +19,13 @@ public class DefaultProductManager implements ProductManager {
 	}
 
 	@Override
-	public Boolean add(Product newProduct) {
-		return productRepository.save(newProduct) != null;
+	public void add(Product newProduct) {
+		productRepository.save(newProduct);
+	}
+
+	@Override
+	public void delete(Long id) {
+		productRepository.deleteById(id);
 	}
 
 }

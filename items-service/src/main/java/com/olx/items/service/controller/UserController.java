@@ -1,6 +1,7 @@
 package com.olx.items.service.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,9 +22,15 @@ public class UserController {
 	private UserManager userManager;
 
 	@ApiOperation(value = "Add a new user", notes = "This service method is used to add a new user to the items database.")
-	@RequestMapping(value = "add", method = RequestMethod.PUT)
-    public Boolean addUser(@RequestBody User user) {
-		return userManager.add(user);
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+    public void addUser(@RequestBody User user) {
+		userManager.add(user);
+    }
+	
+	@ApiOperation(value = "Delete a user", notes = "This service method is used to delete a user from the items database.")
+	@RequestMapping(value = "{email}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("email") String email) {
+		userManager.delete(email);
     }
 
 }

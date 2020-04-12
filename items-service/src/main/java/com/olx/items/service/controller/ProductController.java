@@ -81,14 +81,22 @@ public class ProductController {
 	
 	@ApiOperation(value = "Get active products", notes = "This service method is used to get active products from user.")
 	@RequestMapping(value = "my/active", method = RequestMethod.GET)
-    public List<Product> activeProducts(@RequestParam(required = true) Long id) {
-		return productManager.getActive(id);
+    public ResponseEntity<Object> activeProducts(@RequestParam(required = true) Long id) {
+		User user = userManager.getUserById(id);
+		if(user == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji korisnik sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Object>(productManager.getActive(id), HttpStatus.OK);
     }
 	
 	@ApiOperation(value = "Get arhived products", notes = "This service method is used to get arhived products from user.")
 	@RequestMapping(value = "my/arhived", method = RequestMethod.GET)
-    public List<Product> arhivedProducts(@RequestParam(required = true) Long id) {
-		return productManager.getArhived(id);
+    public ResponseEntity<Object> arhivedProducts(@RequestParam(required = true) Long id) {
+		User user = userManager.getUserById(id);
+		if(user == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji korisnik sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Object>(productManager.getArhived(id), HttpStatus.OK);
     }
 	
 	@ApiOperation(value = "Get all products", notes = "This service method is used to get all products.")
@@ -99,13 +107,22 @@ public class ProductController {
 	
 	@ApiOperation(value = "Get product by id", notes = "This service method is used to get product by id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public Product getProductById(@PathVariable("id") Long id) {
-		return productManager.getProductById(id);
+    public ResponseEntity<Object> getProductById(@PathVariable("id") Long id) {
+		Product product = productManager.getProductById(id);
+		if(product == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji produkt sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Object>(product, HttpStatus.OK);
     }
 	
 	@ApiOperation(value = "Delete product", notes = "This service method is used to delete product by id.")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void deleteProductById(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteProductById(@PathVariable("id") Long id) {
+		Product product = productManager.getProductById(id);
+		if(product == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji produkt sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
 		productManager.delete(id);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
     }	
 }

@@ -6,5 +6,7 @@ public interface ProductManager {
 	
 	Product getProductById(Long id);
 	
-	Boolean add(Product newProduct);
+	void add(Product newProduct);
+	
+	void delete(Long id);
 }
