@@ -31,10 +31,10 @@ public class ChatModelValidator implements Validator {
 			User sender = chat.getSender();
 			
 			if (reciver == null) {
-				errors.rejectValue("reciver", Validation.USER_DOES_NOT_EXIST);
+				errors.reject(Validation.RECEIVER_DOES_NOT_EXIST);
 			}
 			if (sender == null) {
-				errors.rejectValue("sender", Validation.USER_DOES_NOT_EXIST);
+				errors.reject(Validation.SENDER_DOES_NOT_EXIST);
 			}		
 		}	
 	}

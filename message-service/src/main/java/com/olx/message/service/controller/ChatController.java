@@ -81,7 +81,7 @@ public class ChatController {
     									   @RequestParam(required = true) Long receiverId,
     									   @RequestParam(required = true) Long senderId,
     						               Errors errors) {
-		
+
 		User receiver = userManager.getUserById(receiverId);
 		User sender = userManager.getUserById(senderId);
 		
@@ -97,6 +97,17 @@ public class ChatController {
 
 		return new ResponseEntity<Object>(chatManager.save(chat), HttpStatus.OK);
     }
+	
+	@ApiOperation(value = "Delete chat", notes = "This service method is used to delete chat by id.")
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteChatById(@PathVariable("id") Long id) {
+		Chat chat = chatManager.getChatById(id);
+		if(chat == null) {
+			return new ResponseEntity<Object>(new Error("Ne postoji chat sa id = "+ id.toString()), HttpStatus.BAD_REQUEST);
+		}
+		chatManager.delete(id);
+		return new ResponseEntity<Object>(null, HttpStatus.OK);
+    }	
 	
 	public static class RequestForm {
 		public Long userId;
