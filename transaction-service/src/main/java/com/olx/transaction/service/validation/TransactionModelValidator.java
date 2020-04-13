@@ -33,13 +33,13 @@ public class TransactionModelValidator implements Validator {
 			Product product = transaction.getProduct();
 			
 			if (owner == null) {
-				errors.rejectValue("owner", Validation.USER_DOES_NOT_EXIST);
+				errors.reject(Validation.USER_DOES_NOT_EXIST);
 			}
 			if (buyer == null) {
-				errors.rejectValue("buyer", Validation.USER_DOES_NOT_EXIST);
+				errors.reject(Validation.USER_DOES_NOT_EXIST);
 			}
 			if (product == null) {
-				errors.rejectValue("product", Validation.PRODUCT_DOES_NOT_EXIST);
+				errors.reject(Validation.PRODUCT_DOES_NOT_EXIST);
 			}	
 		}	
 	}
