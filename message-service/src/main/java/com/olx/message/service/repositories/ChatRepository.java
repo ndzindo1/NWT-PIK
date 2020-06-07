@@ -12,4 +12,6 @@ import com.olx.message.service.models.User;
 public interface ChatRepository extends CrudRepository<Chat, Long> {
 	
 	List<Chat> findByReceiver(User user);
+	
+	List<Chat> findBySender(User user);
 }

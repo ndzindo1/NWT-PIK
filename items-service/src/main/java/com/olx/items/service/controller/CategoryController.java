@@ -20,7 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/category/")
+@RequestMapping("category/")
 @Api(tags = { "Category Controller" })
 public class CategoryController {
 	

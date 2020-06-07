@@ -13,7 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/transaction/products/")
+@RequestMapping("products/")
 @Api(tags = { "Product Controller" })
 public class ProductController {
 	

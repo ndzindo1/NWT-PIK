@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "com.olx.grpc.service.grpc";
+
+service LogingEvent {
+	rpc LogEvent(Event) returns (Empty) {}
+}
+
+
+message Event {
+	int64 timestamp = 1;
+  	string username = 2;
+  	string microserviceName = 3;
+  	string methodType = 4;
+  	string resurs = 5;
+ 	int32 statusCode = 6;
+  	string bodyResponse = 7;
+}
+
+
+message Empty{
+}

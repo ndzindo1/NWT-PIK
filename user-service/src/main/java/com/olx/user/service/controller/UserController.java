@@ -10,19 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olx.user.service.businesslogic.UserManager;
-import com.olx.user.service.models.Login;
 import com.olx.user.service.models.User;
-import com.olx.user.service.validation.LoginModelValidator;
 import com.olx.user.service.validation.UserModelValidator;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/users/")
 @Api(tags = { "User Controller" })
 public class UserController {
 	
@@ -30,8 +28,6 @@ public class UserController {
 	private UserManager userManager;
 	@Autowired
     private UserModelValidator userModelValidator;
-	@Autowired
-	private LoginModelValidator loginModelValidator;
 	
 	@ApiOperation(value = "Register a new user", notes = "This service method is used to register a new user to the system.")
 	@RequestMapping(value = "register", method = RequestMethod.POST)
@@ -61,16 +57,10 @@ public class UserController {
 		return new ResponseEntity<Object>(updatedUser, HttpStatus.OK);
     }
 	
-	@ApiOperation(value = "Login", notes = "This service method is used to retrieve information about user credentials.")
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-    public  ResponseEntity<Object> login(@RequestBody Login login, Errors errors) {
-		
-		loginModelValidator.validate(login, errors);
-		
-		if (errors.hasErrors()) {
-		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Object>(userManager.getUserByEmail(login.getEmail()), HttpStatus.OK);
+	@ApiOperation(value = "Authenticate", notes = "On passing the correct username and password, it will generate a JSON Web Token (JWT).")
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public  User login(@RequestParam String email) {
+		return userManager.getUserByEmail(email);
     }
 	
 	@ApiOperation(value = "All users", notes = "This service method is used to retrieve all users in system.")

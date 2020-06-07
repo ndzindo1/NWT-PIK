@@ -21,13 +21,15 @@ public class User {
 	
 	private String lastName;
 	
-	public String email;
+	private String email;
 	
-	public String password;
+	private  String password;
 	
-	public String phoneNumber;
+	private String phoneNumber;
 	
-	public String location;
+	private String location;
+	
+	private String role;
 
 	public User() {
 	}
@@ -87,4 +89,13 @@ public class User {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 }

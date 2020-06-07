@@ -39,7 +39,7 @@ public class DefaultProductManager implements ProductManager {
 		Product isAdded = productRepository.save(product);
 		
 		if (isAdded != null) {
-			addProductInAnotherMicroService(product, "http://transaction-service/olx/transaction/products/add");
+			addProductInAnotherMicroService(product, "http://transaction-service/products/add");
 		}
 		
 		return isAdded;

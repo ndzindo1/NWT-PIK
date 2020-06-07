@@ -1,9 +1,11 @@
 package com.olx.items.service.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Image {
@@ -12,7 +14,16 @@ public class Image {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	private String url;
+	@Column(length = 1449616)
+	private String image;
+	
+	public Image() {
+		
+	}
+
+	public Image(byte[] image) {
+		this.image =  new String(image);
+	}
 
 	public Long getId() {
 		return id;
@@ -22,11 +33,11 @@ public class Image {
 		this.id = id;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getImage() {
+		return image;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setImage(String image) {
+		this.image = image;
 	}	
 }
