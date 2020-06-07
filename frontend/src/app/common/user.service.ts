@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 @Injectable()
 export class UserService {
 
-    baseUrl = "https://66f8249a939a.ngrok.io/";
+    baseUrl = "http://localhost:8080/";
 
     loginHeaders = {  };
 
