@@ -40,7 +40,7 @@ export class NewItemComponent implements OnInit {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event) => {
-        this.image = event.target.result;
+        this.image = reader.result;
       }
     }
   }
