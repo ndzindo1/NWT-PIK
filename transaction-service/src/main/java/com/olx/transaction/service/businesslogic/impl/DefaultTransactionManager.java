@@ -65,7 +65,7 @@ public class DefaultTransactionManager implements TransactionManager {
 	}
 	
 	public Product closeTransactionInItemsMicroService(String productId) {
-		URI uri = URIBuilder.fromUri("http://items-service/olx/products/" + productId).build();
+		URI uri = URIBuilder.fromUri("http://itemservice/products/" + productId).build();
 		Product body= new Product();
 		body.setArhived(Boolean.TRUE);
     	RequestEntity<Product> request = RequestEntity.method(HttpMethod.PUT, uri)

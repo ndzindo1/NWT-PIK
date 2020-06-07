@@ -3,6 +3,7 @@ package com.olx.items.service.models;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,6 +35,7 @@ public class Product {
 	
 	private String location;
 	
+	@Column(length = 1449616)
 	private String description;
 	
 	private Double price;

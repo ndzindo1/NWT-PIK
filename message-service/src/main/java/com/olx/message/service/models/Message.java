@@ -1,5 +1,6 @@
 package com.olx.message.service.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class Message {
 	
 	private Long cratedAt;
 	
+	@Column(length = 1449616)
 	private String body;
 
 	public Long getId() {
