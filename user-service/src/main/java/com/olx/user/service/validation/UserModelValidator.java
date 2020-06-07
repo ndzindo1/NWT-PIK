@@ -53,7 +53,7 @@ public class UserModelValidator implements UserValidator {
 			    errors.rejectValue("password", Validation.PASSWORD_LENGTH);
 			} 
 			
-			if(!CharUtil.containsUpperCase(password)){
+			/*if(!CharUtil.containsUpperCase(password)){
 			    errors.rejectValue("password", Validation.PASSWORD_UPPER_CASE);
 			} 
 			
@@ -67,7 +67,7 @@ public class UserModelValidator implements UserValidator {
 			
 			if (!CharUtil.containsSpecial(password)) {
 			    errors.rejectValue("password", Validation.PASSWORD_SPECIAL);
-			}
+			}*/
 		}
 
 	}
@@ -89,7 +89,7 @@ public class UserModelValidator implements UserValidator {
 			
 			Pattern p = Pattern.compile(Validation.REGEX_EMAIL); 
 			if(!validateRegex(p,email)){
-				errors.rejectValue("email", Validation.EMAIL_INVALID);
+				//errors.rejectValue("email", Validation.EMAIL_INVALID);
 			}
 			
 		}

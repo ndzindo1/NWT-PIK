@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.PathSelectors;
@@ -44,5 +45,10 @@ public class UserServiceApplication {
 	@LoadBalanced
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
-	}	
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
 }

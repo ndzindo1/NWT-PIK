@@ -32,7 +32,7 @@ public interface Validation {
     
     String REGEX_EMAIL ="^[A-Za-z\\.\\-\\_]+\\@{1}[a-z]+\\.{1}[a-z]+$";
     
-    String REGEX_PHONENUMBER ="^[+]{1}[0-9]{11}$";
+    String REGEX_PHONENUMBER ="^[0-9]{11}$";
     
     String REGEX_TEXT="^([A-Z]+[A-Za-z]+\\s{0,1})+$";
 }
