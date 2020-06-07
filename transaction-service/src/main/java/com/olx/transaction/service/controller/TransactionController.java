@@ -26,7 +26,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/transaction/")
 @Api(tags = { "Transaction Controller" })
 public class TransactionController {
 	

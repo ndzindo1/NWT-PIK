@@ -14,7 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/items/users/")
+@RequestMapping("users/")
 @Api(tags = { "User Controller" })
 public class UserController {
 	

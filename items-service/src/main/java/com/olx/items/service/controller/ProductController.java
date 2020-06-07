@@ -1,5 +1,8 @@
 package com.olx.items.service.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.olx.items.service.businesslogic.CategoryManager;
 import com.olx.items.service.businesslogic.ProductManager;
 import com.olx.items.service.businesslogic.UserManager;
 import com.olx.items.service.models.Category;
 import com.olx.items.service.models.Product;
+import com.olx.items.service.models.Image;
 import com.olx.items.service.models.User;
 import com.olx.items.service.validation.ProductModelValidator;
 
@@ -25,7 +31,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/products/")
+@RequestMapping("products/")
 @Api(tags = { "Product Controller" })
 public class ProductController {
 	
@@ -58,6 +64,26 @@ public class ProductController {
 		    return new ResponseEntity<Object>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<Object>(productManager.save(product), HttpStatus.OK);
+    }
+	
+
+	@RequestMapping(value = "add/image", method = RequestMethod.POST)
+    public Product addProductImage(@RequestParam(required = true) Long productId, MultipartHttpServletRequest req) {		
+		
+		Product product =productManager.getProductById(productId);
+		if (product!=null) {
+			List<Image> images = new ArrayList<Image>();
+			MultipartFile multipartFile = req.getFile("image");
+			try {
+				images.add(new Image(Base64.getEncoder().encode(multipartFile.getBytes())));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			product.setImages(images);
+
+			productManager.save(product);
+		}
+		return product;
     }
 	
 	@ApiOperation(value = "Update product", notes = "This service method is used to update a product.")
