@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("olx/chat/")
+@RequestMapping("chat/")
 @Api(tags = { "Chat Controller" })
 public class ChatController {
 	
@@ -43,7 +43,7 @@ public class ChatController {
 	private MessageModelValidator messageModelValidator;
 	
 	@ApiOperation(value = "Get my chat", notes = "This service method is used to get all chat from specific user.")
-	@RequestMapping(value = "my", method = RequestMethod.GET)
+	@RequestMapping(value = "my", method = RequestMethod.POST)
     public ResponseEntity<Object>  getMyChat(@RequestBody RequestForm form,
     										 Errors errors) {
 	
