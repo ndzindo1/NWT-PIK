@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 @Injectable()
 export class UserService {
 
-    baseUrl = "http://localhost:8080/";
+    baseUrl = "http://localhost:443/";
 
     loginHeaders = {  };
 
@@ -66,5 +66,14 @@ export class UserService {
 
     getBaseUrl() {
         return this.baseUrl;
+    }
+
+    setBaseUrl(url) {
+        if (url[url.length - 1] == '/') url= url.substr(0, url.length - 1);
+        if (url.slice(url.indexOf(':') + 1).includes(':')) {
+            url = url.substr(0, url.lastIndexOf(':'));
+        }
+        url = url + ":443/";
+        this.baseUrl = url;
     }
 }
